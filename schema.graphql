@@ -61,6 +61,7 @@ type Pair @entity {
   # mirrored from the smart contract
   token0: Token!
   token1: Token!
+  stable: Boolean!
   reserve0: BigDecimal!
   reserve1: BigDecimal!
   totalSupply: BigDecimal!
@@ -133,9 +134,9 @@ type Transaction @entity {
   timestamp: BigInt!
   # This is not the reverse of Mint.transaction; it is only used to
   # track incomplete mints (similar for burns and swaps)
-  mints: [Mint]!
-  burns: [Burn]!
-  swaps: [Swap]!
+  mints: [Mint!]!
+  burns: [Burn!]!
+  swaps: [Swap!]!
 }
 
 type Mint @entity {

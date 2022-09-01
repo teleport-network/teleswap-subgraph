@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import { log, BigInt, BigDecimal, Address, EthereumEvent } from '@graphprotocol/graph-ts'
+import {log, BigInt, BigDecimal, Address, ethereum} from '@graphprotocol/graph-ts'
 import { ERC20 } from '../types/Factory/ERC20'
 import { ERC20SymbolBytes } from '../types/Factory/ERC20SymbolBytes'
 import { ERC20NameBytes } from '../types/Factory/ERC20NameBytes'
@@ -8,7 +8,7 @@ import { Factory as FactoryContract } from '../types/templates/Pair/Factory'
 import { TokenDefinition } from './tokenDefinition'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-export const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+export const FACTORY_ADDRESS = '0x51698f3f51BA023c2E3064852E9db6523a1782Ad'
 
 export let ZERO_BI = BigInt.fromI32(0)
 export let ONE_BI = BigInt.fromI32(1)
@@ -115,12 +115,12 @@ export function fetchTokenName(tokenAddress: Address): string {
 
 export function fetchTokenTotalSupply(tokenAddress: Address): BigInt {
   let contract = ERC20.bind(tokenAddress)
-  let totalSupplyValue = null
+  let totalSupplyValue = BigInt.fromI32(0)
   let totalSupplyResult = contract.try_totalSupply()
   if (!totalSupplyResult.reverted) {
-    totalSupplyValue = totalSupplyResult as i32
+     totalSupplyValue = totalSupplyResult.value
   }
-  return BigInt.fromI32(totalSupplyValue as i32)
+  return totalSupplyValue
 }
 
 export function fetchTokenDecimals(tokenAddress: Address): BigInt {
@@ -132,7 +132,7 @@ export function fetchTokenDecimals(tokenAddress: Address): BigInt {
 
   let contract = ERC20.bind(tokenAddress)
   // try types uint8 for decimals
-  let decimalValue = null
+  let decimalValue = 0
   let decimalResult = contract.try_decimals()
   if (!decimalResult.reverted) {
     decimalValue = decimalResult.value
@@ -169,7 +169,7 @@ export function createUser(address: Address): void {
   }
 }
 
-export function createLiquiditySnapshot(position: LiquidityPosition, event: EthereumEvent): void {
+export function createLiquiditySnapshot(position: LiquidityPosition, event: ethereum.Event): void {
   let timestamp = event.block.timestamp.toI32()
   let bundle = Bundle.load('1')
   let pair = Pair.load(position.pair)

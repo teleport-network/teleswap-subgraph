@@ -1,19 +1,19 @@
-specVersion: 0.0.2
-description: Uniswap is a decentralized protocol for automated token exchange on Ethereum.
-repository: https://github.com/Uniswap/uniswap-v2-subgraph
+specVersion: 0.0.4
+description: Teleswap goerli demo.
+repository: https://github.com/teleport-network/swapv2-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Factory
-    network: mainnet
+    network: op-goerli
     source:
-      address: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+      address: '0x51698f3f51BA023c2E3064852E9db6523a1782Ad'
       abi: Factory
-      startBlock: 10000834
+      startBlock: 763275
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
@@ -29,17 +29,17 @@ dataSources:
         - name: ERC20NameBytes
           file: ./abis/ERC20NameBytes.json
       eventHandlers:
-        - event: PairCreated(indexed address,indexed address,address,uint256)
+        - event: PairCreated(indexed address,indexed address,bool,address,uint256)
           handler: handleNewPair
 templates:
   - kind: ethereum/contract
     name: Pair
-    network: mainnet
+    network: op-goerli
     source:
       abi: Pair
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
