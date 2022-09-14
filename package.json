@@ -8,7 +8,7 @@
     "build": "graph build",
     "create-local": "graph create gop_subgraph --node $GRAPH_NODE_ADDRESS",
     "deploy-local": "graph deploy gop_subgraph --debug --ipfs $IPFS_ADDRESS --node $GRAPH_NODE_ADDRESS",
-    "watch-local": "graph deploy graphprotocol/Uniswap2 --watch --debug --node $GRAPH_NODE_ADDRESS --ipfs $IPFS_ADDRESS",
+    "watch-local": "graph deploy graphprotocol/Uniswap2 --watch --debug --node $GRAPH_NODE_ADDRESS --ipfs $IPFS_ADDRESS"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.20.0",
