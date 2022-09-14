@@ -3,10 +3,11 @@ import { Pair, Token, Bundle } from '../types/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
-const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-const USDC_WETH_PAIR = '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc' // created 10008355
+// TODO: debug joy, update
+const WETH_ADDRESS = '0x3D810bB0feDdCE224E3E1903B4629AB113EF9523'
+const USDC_WETH_PAIR = '0x51ce72d3d312fb9e6a4bdfa630ba88e655fdece2'
 const DAI_WETH_PAIR = '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11' // created block 10042267
-const USDT_WETH_PAIR = '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852' // created block 10093341
+const USDT_WETH_PAIR = '0x137f74d53b1c7c90533d1956124aa471fc6094e7'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -38,9 +39,16 @@ export function getEthPriceInUSD(): BigDecimal {
   }
 }
 
+// TODO: debug joy, update whitelist
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
   '0x3D810bB0feDdCE224E3E1903B4629AB113EF9523', // WETH
+  '0x0093d164e9c57dc0ebc00d58e429adcf383b65d1', // FUSDT
+  '0x84b1d9eff4363650f2811a8ed3b913aa44c7f706', // FUSDC
+  '0xa3c5a981c3d3898d16eadb1fa6ed2063190ae91d', // PUSDT
+  '0x0a13fa9793ed7c5aa119bb5cbc9e83327e856b35', // GA
+  '0x339d479aaf71547ec539e1a1a3df1ace3bea3977', // AA
+  '0xd1a52d3df694cfc3f3171e8f4345539ef46a7d72', // TT
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
