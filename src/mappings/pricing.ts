@@ -2,12 +2,13 @@
 import { Pair, Token, Bundle } from '../types/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
+import { log } from "@graphprotocol/graph-ts";
 
 // TODO: debug joy, update
-const WETH_ADDRESS = '0xf68f4839407524D09200D733e2c201421DA3D9CE'
-const USDC_WETH_PAIR = '0x22AD76b9c896356a4E75AC7ea62c605a14b78AF7'
-const DAI_WETH_PAIR = '0xA880e82AF1A70ec17c0b35126B5749E4A79939BC' // created block 10042267
-const USDT_WETH_PAIR = '0xa8877aA493C69128BFEA6744AA516977939924A6'
+const WETH_ADDRESS = '0xf68f4839407524d09200d733e2c201421da3d9ce'
+const USDC_WETH_PAIR = '0x22ad76b9c896356a4e75ac7ea62c605a14b78af7'
+const DAI_WETH_PAIR = '0xa880e82af1a70ec17c0b35126b5749e4a79939bc' // created block 10042267
+const USDT_WETH_PAIR = '0xa8877aa493c69128bfea6744aa516977939924a6'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -31,8 +32,8 @@ export function getEthPriceInUSD(): BigDecimal {
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
     return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
-    // USDC is the only pair so far
   } else if (usdcPair !== null) {
+    // USDC is the only pair so far
     return usdcPair.token0Price
   } else {
     return ZERO_BD
@@ -42,12 +43,12 @@ export function getEthPriceInUSD(): BigDecimal {
 // TODO: debug joy, update whitelist
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-  '0xf68f4839407524D09200D733e2c201421DA3D9CE', // WETH
+  '0xf68f4839407524d09200d733e2c201421da3d9ce', // WETH
   '0x0093d164e9c57dc0ebc00d58e429adcf383b65d1', // USDT
-  '0x56c822f91C1DC40ce32Ae6109C7cc1D18eD08ECE', // USDC
-  '0x70aBC17e870366C336A5DAd05061828fEff76fF5', // USDT
-  '0x428D01ca9430e59bE114d3671950B426f1Bb84a0', // TT
-  '0x04df1ac7cdD21c065Dcbb73AF9933EECc0F6A59B', // DAI
+  '0x56c822f91c1dc40ce32ae6109c7cc1d18ed08ece', // USDC
+  '0x70abc17e870366c336a5dad05061828feff76ff5', // USDT
+  '0x428d01ca9430e59be114d3671950b426f1bb84a0', // TT
+  '0x04df1ac7cdd21c065dcbb73af9933eecc0f6a59b', // DAI
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
