@@ -5,7 +5,7 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 import { log } from "@graphprotocol/graph-ts";
 
 // TODO: debug joy, update
-const WETH_ADDRESS = '0x86b6c370273e4f27d0c989b8ecdaa6d74dadbb9f'
+const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
 const USDC_WETH_PAIR = '0xbb68abeab3cbe8a9440f910f8e8b9df5f015a1ab'
 const DAI_WETH_PAIR = '0x525f5e6682c40d81bde4d9d17c92974d4048ac8d' // created block 10042267
 const USDT_WETH_PAIR = '0xe06da6d3f5a53c8cc3d35c20aa82d2a5db9e8681'
