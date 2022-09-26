@@ -23,19 +23,19 @@ export function getEthPriceInUSD(): BigDecimal {
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
     let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
-    return daiPair.token1Price
+    return daiPair.token0Price
       .times(daiWeight)
-      .plus(usdcPair.token0Price.times(usdcWeight))
-      .plus(usdtPair.token0Price.times(usdtWeight))
+      .plus(usdcPair.token1Price.times(usdcWeight))
+      .plus(usdtPair.token1Price.times(usdtWeight))
   } else if (daiPair !== null && usdcPair !== null) {
     // dai and USDC have been created
     let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0)
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
-    return daiPair.token1Price.times(daiWeight).plus(usdcPair.token1Price.times(usdcWeight))
+    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
   } else if (usdcPair !== null) {
     // USDC is the only pair so far
-    return usdcPair.token0Price
+    return usdcPair.token1Price
   } else {
     return ZERO_BD
   }
