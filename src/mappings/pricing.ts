@@ -4,7 +4,8 @@ import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 import { log } from "@graphprotocol/graph-ts";
 
-// TODO: debug joy, update
+// TODO: debug joy, update, and update token  getEthPriceInUSD
+// TODO:
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
 const USDC_WETH_PAIR = '0xaaae666b125c82c4e0dad4bf5ef2162e25b3808c'
 const DAI_WETH_PAIR = '0x348af13377168669a0d34f988c2c331497177c52' // created block 10042267
@@ -13,25 +14,25 @@ const USDT_WETH_PAIR = '0xe809d2afa8ea065af826be321937bf89a72cd9de'
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
-  let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
-  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
+  let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
+  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
 
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
+    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0).plus(usdtPair.reserve0)
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price
+    let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+    let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+    return daiPair.token1Price
       .times(daiWeight)
       .plus(usdcPair.token0Price.times(usdcWeight))
       .plus(usdtPair.token0Price.times(usdtWeight))
   } else if (daiPair !== null && usdcPair !== null) {
     // dai and USDC have been created
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1)
+    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0)
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
+    let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+    return daiPair.token1Price.times(daiWeight).plus(usdcPair.token1Price.times(usdcWeight))
   } else if (usdcPair !== null) {
     // USDC is the only pair so far
     return usdcPair.token0Price
