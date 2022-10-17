@@ -7,9 +7,9 @@ import { log } from "@graphprotocol/graph-ts";
 // TODO: debug joy, update, and update token  getEthPriceInUSD
 // TODO:
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
-const USDC_WETH_PAIR = '0xaaae666b125c82c4e0dad4bf5ef2162e25b3808c'
-const DAI_WETH_PAIR = '0x348af13377168669a0d34f988c2c331497177c52' // created block 10042267
-const USDT_WETH_PAIR = '0xe809d2afa8ea065af826be321937bf89a72cd9de'
+const USDC_WETH_PAIR = '0xf64e7939e74e65785a0bac5a6a53d22187f6e28f'
+const DAI_WETH_PAIR = '0x93227886863e82a0ff598620865c22ef10d5477a'
+const USDT_WETH_PAIR = '0xd55779bb454152efbdb2ef3a4597da0d741e39bf'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -39,6 +39,7 @@ export function getEthPriceInUSD(): BigDecimal {
   } else {
     return ZERO_BD
   }
+  return ZERO_BD
 }
 
 // TODO: debug joy, update whitelist
