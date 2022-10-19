@@ -2,7 +2,6 @@
 import { Pair, Token, Bundle } from '../types/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
-import { log } from "@graphprotocol/graph-ts";
 
 // TODO: debug joy, update, and update token  getEthPriceInUSD
 // TODO:
