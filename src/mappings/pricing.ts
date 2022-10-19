@@ -6,7 +6,7 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 // TODO: debug joy, update, and update token  getEthPriceInUSD
 // TODO:
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
-const USDC_WETH_PAIR = '0x9d3bf4d9b9e476445ba9d78ee92f4df9bc2e5344'
+const USDC_WETH_PAIR = '0x5ccd70d16bb6a7f167972b5fdf14031dbcbd5365'
 const DAI_WETH_PAIR = '0xa03c286324a1ce1e21fd06b0cd9a7f10763bd1b9'
 const USDT_WETH_PAIR = '0x20c507c62af0b35261d4e2ee8ba3e9d33c7d8089'
 
@@ -46,7 +46,7 @@ export function getEthPriceInUSD(): BigDecimal {
 let WHITELIST: string[] = [
   '0x4200000000000000000000000000000000000006', // WETH
   '0xec6b24429ab7012afc1b083d4e6763f738047792', // USDT
-  '0xe26f24d4ed34e138c5b52755ddc9614f5949ef95', // USDC
+  '0x4603cff6498c46583300fc5f1c31f872f5514182', // USDC
   '0x38fa58a6a83d97389be88752daa408e2fea40c8b', // DAI
 ]
 
