@@ -8,7 +8,7 @@ dataSources:
     name: Factory
     network: op-goerli
     source:
-      address: '0xFa5395FbFb1805c6a1183D0C72f97306663Ae0D1'
+      address: '0x663C2f4EbF4F61b4C2be7D99b03a000Af394C56B'
       abi: Factory
       startBlock: 2234185
     mapping:
