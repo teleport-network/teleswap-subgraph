@@ -6,31 +6,31 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 // TODO: debug joy, update, and update token  getEthPriceInUSD
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
 const USDC_WETH_PAIR = '0xfa337e55273ea2ca5207df252526ce57fbb1dcfb'
-const DAI_WETH_PAIR = '0x2e230e008e2b1d40b062c5b64b52f93912efcbe9'
+const DAI_WETH_PAIR = '0x2f4966088b286a02db2710f6da93bb328c8275e1'
 const USDT_WETH_PAIR = '0x9e1515c85b892a99011fa6553b5d27bb024eb4ec'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
-  let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
+  let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
 
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0).plus(usdtPair.reserve0)
-    let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve0).plus(usdtPair.reserve0)
+    let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
     let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
-    return daiPair.token0Price
+    return daiPair.token1Price
       .times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
       .plus(usdtPair.token1Price.times(usdtWeight))
   } else if (daiPair !== null && usdcPair !== null) {
     // dai and USDC have been created
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0)
-    let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve0)
+    let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
-    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
+    return daiPair.token1Price.times(daiWeight).plus(usdcPair.token1Price.times(usdcWeight))
   } else if (usdcPair !== null) {
     // USDC is the only pair so far
     return usdcPair.token1Price
@@ -46,7 +46,7 @@ let WHITELIST: string[] = [
   '0x4200000000000000000000000000000000000006', // WETH
   '0xec6b24429ab7012afc1b083d4e6763f738047792', // USDT
   '0x4603cff6498c46583300fc5f1c31f872f5514182', // USDC
-  '0x38fa58a6a83d97389be88752daa408e2fea40c8b', // DAI
+  '0xb9297783d0d568dc378e23d5ba9c32031a4a5132', // DAI
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
